@@ -5,11 +5,11 @@ GRUPO: 12
 TEMA: Sumas inferiores y superiores (Aproximación y refinamiento)
 PREGUNTA CENTRAL: ¿Cómo podemos encerrar el valor de una región entre dos aproximaciones?
 
-ESTRUCTURA DEL GUION / ANIMACIÓN (Duración sincronizada con pausas explicativas):
-- PARTE 1 (Voz 1): Presentación, problema del área y pregunta central.
-- PARTE 2 (Voz 2): Definición de partición, suma inferior (L_n) y suma superior (U_n).
-- PARTE 3 (Voz 3): La cota L_n <= Área <= U_n, proceso de refinamiento (n -> infinito)
-                   y conclusión matemática formal.
+ESTRUCTURA VISUAL LIMPIA:
+- Zona superior (UP): Título de la escena activa (se borra antes del siguiente).
+- Zona lateral izquierda (LEFT / UL): Cuadros informativos claros sin superposición.
+- Zona central/inferior: Sistema de ejes y rectángulos de aproximación.
+- Cada escena limpia totalmente los textos viejos antes de mostrar los nuevos.
 =============================================================================
 """
 
@@ -18,20 +18,18 @@ from manim import *
 class AnimacionGrupo12(Scene):
     def construct(self):
         # =====================================================================
-        # SECCIÓN 1: INTRODUCCIÓN Y PREGUNTA CENTRAL (Voz Integrante 1)
+        # ESCENA 1: PORTADA Y PRESENTACIÓN (Voz 1)
         # =====================================================================
-        # Título principal del proyecto y datos del grupo
         titulo = Text("Sumas Inferiores y Superiores", font_size=38, color=BLUE)
         subtitulo = Text("Cálculo Intermedio • Grupo 12 • Proyecto Manim", font_size=22, color=GRAY_B)
-        encabezado_grupo = VGroup(titulo, subtitulo).arrange(DOWN, buff=0.25)
+        portada = VGroup(titulo, subtitulo).arrange(DOWN, buff=0.3)
 
         self.play(Write(titulo, run_time=1.5), FadeIn(subtitulo))
         self.wait(2)
 
-        # Pregunta central asignada
         caja_pregunta = Rectangle(
-            width=11, height=1.6, color=YELLOW, fill_opacity=0.1, stroke_width=2
-        ).next_to(encabezado_grupo, DOWN, buff=0.6)
+            width=10.5, height=1.6, color=YELLOW, fill_opacity=0.1, stroke_width=2
+        ).next_to(portada, DOWN, buff=0.6)
 
         texto_pregunta = Text(
             "Pregunta central:\n¿Cómo podemos encerrar el valor de una región\nentre dos aproximaciones?",
@@ -41,30 +39,29 @@ class AnimacionGrupo12(Scene):
         self.play(Create(caja_pregunta), Write(texto_pregunta, run_time=2))
         self.wait(3.5)
 
-        # Transición hacia el problema geométrico
+        # Limpieza total de la portada
         self.play(
-            FadeOut(encabezado_grupo),
+            FadeOut(portada),
             FadeOut(caja_pregunta),
             FadeOut(texto_pregunta)
         )
+        self.wait(0.5)
 
         # =====================================================================
-        # SECCIÓN 2: PLANTEAMIENTO DEL PROBLEMA Y EJEMPLO PROPIO (Voz Integrante 1)
+        # ESCENA 2: EL PROBLEMA DEL ÁREA Y EJEMPLO PROPIO (Voz 1)
         # =====================================================================
-        titulo_seccion2 = Text("1. El Problema del Área y Nuestro Ejemplo", font_size=26, color=BLUE).to_edge(UP)
-        self.play(Write(titulo_seccion2))
+        titulo_e2 = Text("1. El Problema del Área y Nuestro Ejemplo", font_size=26, color=BLUE_B).to_edge(UP, buff=0.4)
+        self.play(Write(titulo_e2))
 
-        # Configuración de los ejes coordenados
-        # Intervalo [0, 2] en el eje X, y valores [0, 4.5] en el eje Y
+        # Ejes coordenados desplazados ligeramente a la derecha para dar espacio a los textos
         ejes = Axes(
             x_range=[0, 2.5, 0.5],
             y_range=[0, 5, 1],
-            x_length=6.5,
+            x_length=6.0,
             y_length=4.2,
             axis_config={"include_ticks": True}
-        ).to_edge(DOWN, buff=0.8)
+        ).to_edge(DOWN, buff=0.7).shift(RIGHT * 1.8)
 
-        # Etiquetas manuales de los ejes para total compatibilidad sin dependencias externas
         etiqueta_x = Text("x", font_size=20).next_to(ejes.x_axis.get_end(), RIGHT)
         etiqueta_y = Text("y", font_size=20).next_to(ejes.y_axis.get_end(), UP)
         marca_0 = Text("0", font_size=16).next_to(ejes.c2p(0, 0), DL, buff=0.15)
@@ -72,176 +69,182 @@ class AnimacionGrupo12(Scene):
         marca_2 = Text("2", font_size=16).next_to(ejes.c2p(2, 0), DOWN, buff=0.2)
         etiquetas_ejes = VGroup(etiqueta_x, etiqueta_y, marca_0, marca_1, marca_2)
 
-        # Función seleccionada: f(x) = x^2, no negativa y creciente en [0, 2]
         curva = ejes.plot(lambda x: x**2, x_range=[0, 2], color=BLUE_C, stroke_width=4)
-        etiqueta_funcion = Text("f(x) = x²", font_size=24, color=BLUE_C).next_to(ejes.c2p(2, 4), UR, buff=0.15)
+        etiqueta_curva = Text("f(x) = x²", font_size=22, color=BLUE_C).next_to(ejes.c2p(2, 4), UR, buff=0.15)
 
-        # Sombreado del área bajo la curva que deseamos calcular
+        # Cuadro informativo lateral izquierdo para la teoría inicial
+        info_ejemplo = VGroup(
+            Text("Función continua y no negativa:", font_size=18, color=GRAY_A),
+            Text("f(x) = x²  en  [0, 2]", font_size=20, color=WHITE, weight=BOLD),
+            Text("Área bajo la curva:", font_size=18, color=GRAY_A),
+            Text("∫₀² x² dx = 8/3 ≈ 2.67", font_size=20, color=YELLOW, weight=BOLD)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.2).to_edge(LEFT, buff=0.6).shift(UP * 0.5)
+
         area_sombreada = ejes.get_area(curva, x_range=[0, 2], color=BLUE_E, opacity=0.35)
-        texto_area_exacta = Text("Área Exacta = ∫₀² x² dx = 8/3 ≈ 2.67", font_size=20, color=BLUE_B).to_corner(UL)
 
         self.play(Create(ejes), FadeIn(etiquetas_ejes))
-        self.play(Create(curva), Write(etiqueta_funcion))
-        self.play(FadeIn(area_sombreada), Write(texto_area_exacta))
+        self.play(Create(curva), Write(etiqueta_curva))
+        self.play(FadeIn(info_ejemplo), FadeIn(area_sombreada))
         self.wait(3.5)
 
-        # Limpiamos el área sombreada para comenzar con los rectángulos
-        self.play(FadeOut(area_sombreada), FadeOut(titulo_seccion2))
+        # Limpiamos el área sombreada y los textos antes de pasar a las sumas
+        self.play(
+            FadeOut(area_sombreada),
+            FadeOut(info_ejemplo),
+            FadeOut(titulo_e2)
+        )
+        self.wait(0.5)
 
         # =====================================================================
-        # SECCIÓN 3: PARTICIÓN Y SUMA INFERIOR L_n (Voz Integrante 2)
+        # ESCENA 3: SUMA INFERIOR L_4 (Voz 2)
         # =====================================================================
-        titulo_seccion3 = Text("2. Partición Regular y Suma Inferior (L₄)", font_size=26, color=GREEN).to_edge(UP)
-        self.play(Write(titulo_seccion3))
+        titulo_e3 = Text("2. Partición Regular y Suma Inferior (L₄)", font_size=26, color=GREEN).to_edge(UP, buff=0.4)
+        self.play(Write(titulo_e3))
 
-        # Detalle de la partición: n = 4 subintervalos, dx = (2 - 0) / 4 = 0.5
-        detalle_particion = Text("Partición: n = 4,  Δx = 0.5\nPuntos: {0,  0.5,  1.0,  1.5,  2.0}", font_size=18, color=GRAY_A).next_to(titulo_seccion3, DOWN, buff=0.2)
-        self.play(FadeIn(detalle_particion))
-        self.wait(2)
-
-        # Como f(x)=x^2 es creciente, el mínimo en cada subintervalo [x_{i-1}, x_i]
-        # ocurre en el extremo izquierdo (input_sample_type='left').
-        rects_inferiores_4 = ejes.get_riemann_rectangles(
+        # Rectángulos inferiores con n = 4 (extremo izquierdo en función creciente)
+        rects_inf_4 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=0.5,
             input_sample_type="left",
-            fill_opacity=0.6, color=GREEN_C, stroke_color=WHITE, stroke_width=1.5
+            fill_opacity=0.65, color=GREEN_C, stroke_color=WHITE, stroke_width=1.5
         )
 
-        tarjeta_inferior = VGroup(
-            Text("Suma Inferior (L₄):", font_size=20, color=GREEN, weight=BOLD),
-            Text("L₄ = [0² + 0.5² + 1² + 1.5²] · 0.5", font_size=17, color=WHITE),
-            Text("L₄ = 1.75  (Aproximación por DEFECTO)", font_size=17, color=GREEN_A)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).to_corner(UL)
+        tarjeta_inf = VGroup(
+            Text("Partición:", font_size=18, color=GRAY_A),
+            Text("n = 4,  Δx = 0.5", font_size=19, color=WHITE),
+            Text("Puntos: {0, 0.5, 1, 1.5, 2}", font_size=16, color=GRAY_B),
+            Text("Suma Inferior (L₄):", font_size=18, color=GREEN, weight=BOLD),
+            Text("L₄ = ∑ f(xᵢ₋₁) · Δx", font_size=17, color=WHITE),
+            Text("L₄ = 1.75", font_size=22, color=GREEN_A, weight=BOLD),
+            Text("(Aproximación por DEFECTO)", font_size=15, color=GREEN_B)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).to_edge(LEFT, buff=0.6).shift(UP * 0.3)
 
-        self.play(Create(rects_inferiores_4, run_time=2), FadeIn(tarjeta_inferior))
+        self.play(Create(rects_inf_4, run_time=2), FadeIn(tarjeta_inf))
         self.wait(4)
 
         # =====================================================================
-        # SECCIÓN 4: SUMA SUPERIOR U_n Y EL ENCIERRO (Voz Integrante 2)
+        # ESCENA 4: SUMA SUPERIOR U_4 Y ENCIERRO (Voz 2)
         # =====================================================================
-        self.play(FadeOut(titulo_seccion3), FadeOut(detalle_particion))
-        titulo_seccion4 = Text("3. Suma Superior (U₄) y Encierro del Área", font_size=26, color=RED).to_edge(UP)
-        self.play(Write(titulo_seccion4))
+        self.play(FadeOut(titulo_e3))
+        titulo_e4 = Text("3. Suma Superior (U₄) y Encierro del Área", font_size=26, color=RED).to_edge(UP, buff=0.4)
+        self.play(Write(titulo_e4))
 
-        # El máximo en cada subintervalo ocurre en el extremo derecho (input_sample_type='right').
-        rects_superiores_4 = ejes.get_riemann_rectangles(
+        # Rectángulos superiores con n = 4 (extremo derecho)
+        rects_sup_4 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=0.5,
             input_sample_type="right",
             fill_opacity=0.35, color=RED_C, stroke_color=WHITE, stroke_width=1.5
         )
 
-        tarjeta_superior = VGroup(
-            Text("Suma Superior (U₄):", font_size=20, color=RED, weight=BOLD),
-            Text("U₄ = [0.5² + 1² + 1.5² + 2²] · 0.5", font_size=17, color=WHITE),
-            Text("U₄ = 3.75  (Aproximación por EXCESO)", font_size=17, color=RED_A)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).next_to(tarjeta_inferior, DOWN, aligned_edge=LEFT, buff=0.25)
+        tarjeta_sup = VGroup(
+            Text("Suma Superior (U₄):", font_size=18, color=RED, weight=BOLD),
+            Text("U₄ = ∑ f(xᵢ) · Δx", font_size=17, color=WHITE),
+            Text("U₄ = 3.75", font_size=22, color=RED_A, weight=BOLD),
+            Text("(Aproximación por EXCESO)", font_size=15, color=RED_B),
+            Text("El Área queda encerrada:", font_size=17, color=YELLOW, weight=BOLD),
+            Text("1.75  ≤  2.67  ≤  3.75", font_size=19, color=YELLOW)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).to_edge(LEFT, buff=0.6).shift(UP * 0.3)
 
-        self.play(Create(rects_superiores_4, run_time=2), FadeIn(tarjeta_superior))
-        self.wait(3)
-
-        # Conclusión de la cota doble
-        caja_desigualdad = Rectangle(width=7, height=0.9, color=YELLOW, fill_opacity=0.2).to_edge(UP, buff=0.1)
-        texto_desigualdad = Text(
-            "L₄ ≤ Área Real ≤ U₄   ⟺   1.75 ≤ 2.67 ≤ 3.75",
-            font_size=20, color=YELLOW
-        ).move_to(caja_desigualdad.get_center())
-
-        self.play(FadeOut(titulo_seccion4), Create(caja_desigualdad), Write(texto_desigualdad))
+        # Reemplazamos la tarjeta izquierda limpiamente
+        self.play(
+            FadeOut(tarjeta_inf),
+            FadeIn(tarjeta_sup),
+            Create(rects_sup_4, run_time=2)
+        )
         self.wait(4)
 
         # =====================================================================
-        # SECCIÓN 5: REFINAMIENTO Y RESPUESTA CENTRAL (Voz Integrante 3)
+        # ESCENA 5: PROCESO DE REFINAMIENTO (Voz 3)
         # =====================================================================
+        # Limpieza de títulos y tarjetas anteriores
         self.play(
-            FadeOut(tarjeta_inferior),
-            FadeOut(tarjeta_superior),
-            FadeOut(caja_desigualdad),
-            FadeOut(texto_desigualdad)
+            FadeOut(titulo_e4),
+            FadeOut(tarjeta_sup)
         )
 
-        titulo_seccion5 = Text("4. Proceso de Refinamiento: n → ∞", font_size=26, color=ORANGE).to_edge(UP)
-        self.play(Write(titulo_seccion5))
+        titulo_e5 = Text("4. Proceso de Refinamiento: n → ∞", font_size=26, color=ORANGE).to_edge(UP, buff=0.4)
+        self.play(Write(titulo_e5))
 
-        # Subimos la partición a n = 16 subintervalos (dx = 2/16 = 0.125)
-        rects_inferiores_16 = ejes.get_riemann_rectangles(
+        # Refinamiento a n = 16
+        rects_inf_16 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=2/16,
             input_sample_type="left",
-            fill_opacity=0.6, color=GREEN_C, stroke_color=WHITE, stroke_width=0.8
+            fill_opacity=0.65, color=GREEN_C, stroke_color=WHITE, stroke_width=0.8
         )
-        rects_superiores_16 = ejes.get_riemann_rectangles(
+        rects_sup_16 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=2/16,
             input_sample_type="right",
             fill_opacity=0.35, color=RED_C, stroke_color=WHITE, stroke_width=0.8
         )
 
-        info_refinamiento = VGroup(
-            Text("Refinando con n = 16 subintervalos:", font_size=19, color=WHITE),
-            Text("• Suma Inferior:   L₁₆ = 2.42", font_size=18, color=GREEN_A),
-            Text("• Área Real:       A   = 2.67", font_size=18, color=BLUE_B),
-            Text("• Suma Superior:   U₁₆ = 2.92", font_size=18, color=RED_A),
-            Text("• Diferencia U - L = 0.50", font_size=18, color=YELLOW)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).to_corner(UL)
+        tarjeta_ref_16 = VGroup(
+            Text("Refinando: n = 16 subintervalos", font_size=17, color=ORANGE, weight=BOLD),
+            Text("• L₁₆ = 2.42  (Sube)", font_size=17, color=GREEN_A),
+            Text("• Área Real = 2.67", font_size=17, color=WHITE),
+            Text("• U₁₆ = 2.92  (Baja)", font_size=17, color=RED_A),
+            Text("• Diferencia U - L = 0.50", font_size=17, color=YELLOW)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.18).to_edge(LEFT, buff=0.6).shift(UP * 0.3)
 
         self.play(
-            FadeIn(info_refinamiento),
-            Transform(rects_inferiores_4, rects_inferiores_16),
-            Transform(rects_superiores_4, rects_superiores_16),
+            FadeIn(tarjeta_ref_16),
+            Transform(rects_inf_4, rects_inf_16),
+            Transform(rects_sup_4, rects_sup_16),
             run_time=2.5
         )
-        self.wait(4)
+        self.wait(3.5)
 
-        # Ahora mostramos n = 40 (casi continuo)
-        rects_inferiores_40 = ejes.get_riemann_rectangles(
+        # Refinamiento a n = 40 (alta precisión visual)
+        rects_inf_40 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=2/40,
             input_sample_type="left",
-            fill_opacity=0.65, color=GREEN_C, stroke_color=None
+            fill_opacity=0.7, color=GREEN_C, stroke_color=None
         )
-        rects_superiores_40 = ejes.get_riemann_rectangles(
+        rects_sup_40 = ejes.get_riemann_rectangles(
             curva, x_range=[0, 2], dx=2/40,
             input_sample_type="right",
-            fill_opacity=0.4, color=RED_C, stroke_color=None
+            fill_opacity=0.35, color=RED_C, stroke_color=None
         )
 
-        info_refinamiento_40 = VGroup(
-            Text("Refinando con n = 40 subintervalos:", font_size=19, color=WHITE),
-            Text("• Suma Inferior:   L₄₀ = 2.57", font_size=18, color=GREEN_A),
-            Text("• Área Real:       A   = 2.67", font_size=18, color=BLUE_B),
-            Text("• Suma Superior:   U₄₀ = 2.77", font_size=18, color=RED_A),
-            Text("• Diferencia U - L = 0.20", font_size=18, color=YELLOW)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.15).to_corner(UL)
+        tarjeta_ref_40 = VGroup(
+            Text("Refinando: n = 40 subintervalos", font_size=17, color=ORANGE, weight=BOLD),
+            Text("• L₄₀ = 2.57", font_size=17, color=GREEN_A),
+            Text("• Área Real = 2.67", font_size=17, color=WHITE),
+            Text("• U₄₀ = 2.77", font_size=17, color=RED_A),
+            Text("• Diferencia U - L = 0.20", font_size=17, color=YELLOW)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.18).to_edge(LEFT, buff=0.6).shift(UP * 0.3)
 
         self.play(
-            Transform(info_refinamiento, info_refinamiento_40),
-            Transform(rects_inferiores_4, rects_inferiores_40),
-            Transform(rects_superiores_4, rects_superiores_40),
+            Transform(tarjeta_ref_16, tarjeta_ref_40),
+            Transform(rects_inf_4, rects_inf_40),
+            Transform(rects_sup_4, rects_sup_40),
             run_time=2.5
         )
         self.wait(4)
 
         # =====================================================================
-        # SECCIÓN 6: CONCLUSIÓN Y RESPUESTA CENTRAL (Voz Integrante 3)
+        # ESCENA 6: CONCLUSIÓN Y RESPUESTA CENTRAL (Voz 3)
         # =====================================================================
+        # Vaciado completo del escenario gráfico
         self.play(
-            FadeOut(rects_inferiores_4),
-            FadeOut(rects_superiores_4),
+            FadeOut(rects_inf_4),
+            FadeOut(rects_sup_4),
             FadeOut(ejes),
             FadeOut(curva),
-            FadeOut(etiqueta_funcion),
+            FadeOut(etiqueta_curva),
             FadeOut(etiquetas_ejes),
-            FadeOut(info_refinamiento),
-            FadeOut(texto_area_exacta),
-            FadeOut(titulo_seccion5)
+            FadeOut(tarjeta_ref_16),
+            FadeOut(titulo_e5)
         )
+        self.wait(0.5)
 
-        titulo_cierre = Text("Conclusión y Respuesta a la Pregunta Central", font_size=28, color=YELLOW).to_edge(UP)
+        titulo_cierre = Text("Conclusión y Respuesta a la Pregunta Central", font_size=28, color=YELLOW).to_edge(UP, buff=0.6)
         self.play(Write(titulo_cierre))
 
         bloque_conclusion = VGroup(
             Text("1. Encierro riguroso: En toda función continua y no negativa,", font_size=20, color=WHITE),
-            Text("   Ln ≤ Área Real ≤ Un para cualquier cantidad n de rectángulos.", font_size=20, color=GREEN_A),
-            Text("2. Control del error: La diferencia entre las cotas es exactamente:", font_size=20, color=WHITE),
+            Text("   Ln ≤ Área Real ≤ Un para cualquier partición n.", font_size=20, color=GREEN_A),
+            Text("2. Control del error: La diferencia entre cotas es:", font_size=20, color=WHITE),
             Text("   Un - Ln = [f(b) - f(a)] · Δx = (4 - 0) · (2/n) = 8/n", font_size=20, color=ORANGE),
-            Text("3. Límite de Riemann: Al hacer la partición infinitamente fina (n → ∞),", font_size=20, color=WHITE),
+            Text("3. Límite de Riemann: Al hacer la partición infinitamente fina (n → ∞):", font_size=20, color=WHITE),
             Text("   lim (Un - Ln) = 0  ⟹  lim Ln = lim Un = ∫₀² x² dx = 8/3", font_size=20, color=BLUE_B)
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.25).shift(DOWN * 0.2)
 
@@ -251,8 +254,11 @@ class AnimacionGrupo12(Scene):
 
         self.wait(4)
 
-        # Créditos finales
+        # =====================================================================
+        # ESCENA 7: CRÉDITOS Y FUENTES (Cierre)
+        # =====================================================================
         self.play(FadeOut(titulo_cierre), FadeOut(bloque_conclusion))
+
         creditos = VGroup(
             Text("Cálculo Intermedio • Proyecto Manim Community", font_size=24, color=GRAY_A),
             Text("Grupo 12: Sumas Inferiores y Superiores", font_size=22, color=BLUE),

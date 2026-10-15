@@ -25,29 +25,31 @@ Ejemplo propio: $f(x) = x^2$ en $[0, 2]$, área exacta $8/3 \approx 2.67$.
 ### Escena 2 – El problema del área (0:20 – 0:45)
 **[0:20]** "Para responderla, trabajaremos con un ejemplo propio: la función f de x igual a x al cuadrado en el intervalo de cero a dos."
 
-**[0:34]** *(aparece el área sombreada)* "Es continua y no negativa, así que el área bajo su curva está bien definida. Su valor exacto es ocho tercios, aproximadamente dos coma sesenta y siete."
+**[0:34]** *(aparece el área sombreada)* "Es continua y no negativa, así que su área está bien definida. Vale exactamente ocho tercios, cerca de dos coma sesenta y siete."
 
 ---
 
 ## Voz 2 (0:45 – 2:00)
 
 ### Escena 3 – Suma inferior $L_4$ (0:45 – 1:20)
-**[0:45]** "Dividimos el intervalo en n igual a cuatro partes iguales, cada una de ancho delta x igual a cero coma cinco."
+**[0:45]** "Dividimos el intervalo en cuatro partes iguales, de ancho cero coma cinco."
 
 **[0:52]** "Como la función es creciente, el mínimo de cada subintervalo ocurre en el extremo izquierdo."
 
 **[1:00]** *(aparecen los rectángulos verdes)* "Con esas alturas construimos rectángulos que quedan por debajo de la curva."
 
-**[1:06]** "Sumamos sus áreas: L cuatro es cero coma cinco por cero, más cero coma veinticinco, más uno, más dos coma veinticinco, igual a uno coma setenta y cinco."
+**[1:06]** *(aparece el cálculo)* "Sumamos las alturas y multiplicamos por cero coma cinco."
 
-**[1:15]** *(el punto verde aparece en la recta numérica)* "Es una aproximación por defecto."
+**[1:11]** *(aparece el resultado)* "Resulta: L cuatro igual a uno coma setenta y cinco,"
+
+**[1:15]** *(el punto verde aparece en la recta numérica)* "una aproximación por defecto, porque queda por debajo del área."
 
 ### Escena 4 – Suma superior y encierro (1:20 – 2:00)
 **[1:20]** "Ahora hacemos lo mismo con el máximo, que en una función creciente ocurre en el extremo derecho."
 
 **[1:30]** "Estos rectángulos sobresalen de la curva, y su suma, la suma superior, es U cuatro igual a tres coma setenta y cinco: una aproximación por exceso."
 
-**[1:42]** *(aparece la barra amarilla en la recta numérica)* "Así, el área real queda encerrada: uno coma setenta y cinco es menor o igual que dos coma sesenta y siete, que es menor o igual que tres coma setenta y cinco."
+**[1:42]** *(aparece la barra amarilla en la recta numérica)* "Así, el área queda encerrada: uno coma setenta y cinco, menor o igual que dos coma sesenta y siete, menor o igual que tres coma setenta y cinco."
 
 **[1:54]** "Pero el intervalo todavía es amplio: ¿podemos achicarlo?"
 

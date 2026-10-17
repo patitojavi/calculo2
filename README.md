@@ -52,7 +52,7 @@ El área buscada queda exactamente "encerrada" y determinada.
 
 ### 3. Requisitos de Instalación
 
-1. **Python 3.10 o superior** (Recomendado Python 3.12 / 3.13).
+1. **Python 3.10 o superior** (Recomendado Python 3.12 / 3.13; Python 3.14 aún no es compatible con Manim).
 2. **FFmpeg** instalado en el sistema:
    * En Windows (PowerShell):
      ```powershell
@@ -61,6 +61,10 @@ El área buscada queda exactamente "encerrada" y determinada.
    * En Linux (Ubuntu/Debian):
      ```bash
      sudo apt update && sudo apt install ffmpeg
+     ```
+   * En Arch Linux / CachyOS:
+     ```bash
+     sudo pacman -S ffmpeg cairo pango
      ```
    * En macOS:
      ```bash

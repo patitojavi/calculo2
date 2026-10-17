@@ -44,9 +44,9 @@ El área buscada queda exactamente "encerrada" y determinada.
 
 | Sección | Tiempo Est. | Responsable | Contenido / Narración Matemática |
 | :--- | :--- | :--- | :--- |
-| **1. Introducción** | 0:00 - 0:45 | **Voz 1** | Presentación de integrantes, tema y formulación de la pregunta central. Planteamiento del problema del área para $f(x) = x^2$. |
+| **1. Introducción** | 0:00 - 0:45 | **Voz 1** | Presentación del grupo, tema y formulación de la pregunta central. Planteamiento del problema del área para $f(x) = x^2$. |
 | **2. Construcción** | 0:45 - 2:00 | **Voz 2** | Definición de la partición ($n = 4, \Delta x = 0.5$). Cálculo de la suma inferior $L_4 = 1.75$ y la suma superior $U_4 = 3.75$. Muestra gráfica del encierro $L_4 \le \text{Área} \le U_4$. |
-| **3. Refinamiento y Cierre**| 2:00 - 4:30 | **Voz 3** | Animación dinámica del refinamiento con $n = 16$ y $n = 40$. Demostración de que el error tiende a cero ($\frac{8}{n} \to 0$). Respuesta formal a la pregunta central y créditos. |
+| **3. Refinamiento y Cierre**| 2:00 - 4:30 | **Voz 3** | Animación dinámica del refinamiento con $n = 8, 16, 40$ y $100$. Demostración de que el error tiende a cero ($\frac{8}{n} \to 0$). Respuesta formal a la pregunta central y créditos. |
 
 ---
 

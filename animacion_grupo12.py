@@ -315,7 +315,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(120)
 
         # =====================================================================
-        # ESCENA 5: PROCESO DE REFINAMIENTO (Voz 3)  |  2:00 - 3:35
+        # ESCENA 5: PROCESO DE REFINAMIENTO (Voz 3)  |  2:00 - 3:34
         # =====================================================================
         titulo_e5 = t("4. Proceso de Refinamiento: n → ∞", 28, ORANGE, True).to_edge(UP, buff=0.4)
         self.play(
@@ -406,7 +406,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(214)
 
         # =====================================================================
-        # ESCENA 6: CONCLUSIÓN Y RESPUESTA CENTRAL (Voz 3)  |  3:35 - 4:15
+        # ESCENA 6: CONCLUSIÓN Y RESPUESTA CENTRAL (Voz 3)  |  3:34 - 4:14
         # =====================================================================
         # Vaciado completo del escenario gráfico
         self.play(
@@ -457,7 +457,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(254)
 
         # =====================================================================
-        # ESCENA 7: CRÉDITOS Y FUENTES (Cierre)  |  4:15 - 4:30
+        # ESCENA 7: CRÉDITOS Y FUENTES (Cierre)  |  4:14 - 4:30
         # =====================================================================
         self.play(FadeOut(titulo_cierre), FadeOut(bloques), FadeOut(respuesta), run_time=1)
 

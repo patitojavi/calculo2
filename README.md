@@ -102,7 +102,25 @@ manim -pqh animacion_grupo12.py AnimacionGrupo12
 
 ---
 
-### 5. Fuentes y Declaración de IA
+### 5. Verificación de los cálculos
+
+El script `verificar_calculos.py` comprueba automáticamente que los números del video son correctos. Importa las funciones reales de `animacion_grupo12.py` (`suma_inferior`, `suma_superior`), por lo que verifica el mismo código que genera la animación:
+
+* Los valores de $L_n$ y $U_n$ de la tabla del video para $n = 4, 8, 16, 40$ y $100$.
+* El encierro $L_n \le \frac{8}{3} \le U_n$ en cada caso.
+* La fórmula del error $U_n - L_n = \frac{8}{n}$.
+* Que $L_n$ crece, $U_n$ decrece y que al duplicar $n$ el error se reduce a la mitad.
+
+```bash
+# Con el entorno virtual activado:
+python verificar_calculos.py
+```
+
+Si todo es correcto, el script termina con `Todas las verificaciones pasaron.`; si algo falla, muestra cuáles y termina con código de error.
+
+---
+
+### 6. Fuentes y Declaración de IA
 
 * **Apunte Base:** *Introducción a la integral*, Cálculo Intermedio, Departamento de Matemática.
 * **Bibliografía Complementaria:** 

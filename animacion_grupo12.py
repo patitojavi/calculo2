@@ -11,13 +11,12 @@ ESTRUCTURA VISUAL LIMPIA:
 - Zona central/inferior: Sistema de ejes y rectángulos de aproximación.
 - Cada escena limpia totalmente los textos viejos antes de mostrar los nuevos.
 
-SINCRONIZACIÓN CON EL GUION (duración total: 4:30):
-- Voz 1 (0:00 - 0:45): Escena 1 (portada) y Escena 2 (problema del área).
-- Voz 2 (0:45 - 2:00): Escena 3 (suma inferior) y Escena 4 (suma superior + encierro).
-- Voz 3 (2:00 - 4:30): Escena 5 (refinamiento), Escena 6 (conclusión) y Escena 7 (créditos).
+SINCRONIZACIÓN CON LA NARRACIÓN (duración de la animación: 4:30):
+- Voz 1: 0:00 - 0:33, y retoma más adelante (conclusión).
+- Voz 2: 0:34 - 1:51.
+- Voz 3: 1:52 - 3:10, y retoma más adelante (cierre).
 Cada escena usa marcas de tiempo ABSOLUTAS (esperar_hasta) para que el video
 calce con la narración sin importar cuánto duren las animaciones individuales.
-El texto de la narración está en guion_narracion.md.
 =============================================================================
 """
 
@@ -114,7 +113,7 @@ class AnimacionGrupo12(Scene):
     # ------------------------------------------------------------------
     def construct(self):
         # =====================================================================
-        # ESCENA 1: PORTADA Y PRESENTACIÓN (Voz 1)  |  0:00 - 0:20
+        # ESCENA 1: PORTADA Y PRESENTACIÓN  |  0:00 - 0:20
         # =====================================================================
         titulo = t("Sumas Inferiores y Superiores", 46, BLUE, True)
         subtitulo = t("Cálculo Intermedio  •  Grupo 12  •  Proyecto Manim", 24, GRAY_B)
@@ -137,7 +136,7 @@ class AnimacionGrupo12(Scene):
         self.play(FadeOut(portada), FadeOut(caja), FadeOut(pregunta), run_time=1)
 
         # =====================================================================
-        # ESCENA 2: EL PROBLEMA DEL ÁREA Y EJEMPLO PROPIO (Voz 1)  |  0:20 - 0:45
+        # ESCENA 2: EL PROBLEMA DEL ÁREA Y EJEMPLO PROPIO  |  0:20 - 0:45
         # =====================================================================
         titulo_e2 = t("1. El Problema del Área y Nuestro Ejemplo", 28, BLUE_B, True).to_edge(UP, buff=0.4)
         self.play(Write(titulo_e2), run_time=1)
@@ -186,7 +185,7 @@ class AnimacionGrupo12(Scene):
         self.play(FadeOut(area_sombreada), FadeOut(info_ejemplo), FadeOut(titulo_e2), run_time=1)
 
         # =====================================================================
-        # ESCENA 3: SUMA INFERIOR L_4 (Voz 2)  |  0:45 - 1:20
+        # ESCENA 3: SUMA INFERIOR L_4  |  0:45 - 1:20
         # =====================================================================
         titulo_e3 = t("2. Partición Regular y Suma Inferior (L<sub>4</sub>)", 28, GREEN, True).to_edge(UP, buff=0.4)
         self.play(Write(titulo_e3), run_time=1)
@@ -257,7 +256,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(80)
 
         # =====================================================================
-        # ESCENA 4: SUMA SUPERIOR U_4 Y ENCIERRO (Voz 2)  |  1:20 - 2:00
+        # ESCENA 4: SUMA SUPERIOR U_4 Y ENCIERRO  |  1:20 - 2:00
         # =====================================================================
         titulo_e4 = t("3. Suma Superior (U<sub>4</sub>) y Encierro del Área", 28, RED, True).to_edge(UP, buff=0.4)
         self.play(
@@ -315,7 +314,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(120)
 
         # =====================================================================
-        # ESCENA 5: PROCESO DE REFINAMIENTO (Voz 3)  |  2:00 - 3:34
+        # ESCENA 5: PROCESO DE REFINAMIENTO  |  2:00 - 3:34
         # =====================================================================
         titulo_e5 = t("4. Proceso de Refinamiento: n → ∞", 28, ORANGE, True).to_edge(UP, buff=0.4)
         self.play(
@@ -406,7 +405,7 @@ class AnimacionGrupo12(Scene):
         self.esperar_hasta(214)
 
         # =====================================================================
-        # ESCENA 6: CONCLUSIÓN Y RESPUESTA CENTRAL (Voz 3)  |  3:34 - 4:14
+        # ESCENA 6: CONCLUSIÓN Y RESPUESTA CENTRAL  |  3:34 - 4:14
         # =====================================================================
         # Vaciado completo del escenario gráfico
         self.play(

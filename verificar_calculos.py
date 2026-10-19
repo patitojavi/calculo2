@@ -2,7 +2,7 @@
 Verificación de los cálculos que aparecen en el video (f(x) = x^2 en [0, 2]).
 
 Importa las funciones reales de animacion_grupo12.py y comprueba que los
-valores mostrados en pantalla y leídos en guion_narracion.md sean correctos.
+valores mostrados en pantalla y leídos en la narración sean correctos.
 
 Uso:
     python verificar_calculos.py
